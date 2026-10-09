@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-kaushan), cursive;
+
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-cream: var(--cream);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --background: #f4f3f1;
+  --foreground: #161413;
+  --cream: #f7f6f4;
+  --card: #ffffff;
+  --card-foreground: #161413;
+  --popover: #ffffff;
+  --popover-foreground: #161413;
+  --primary: #d71f16;
+  --primary-foreground: #ffffff;
+  --secondary: #eeece9;
+  --secondary-foreground: #161413;
+  --muted: #eeece9;
+  --muted-foreground: #66605b;
+  --accent: #eeece9;
+  --accent-foreground: #161413;
+  --destructive: #c81e14;
+  --border: #e2dfdb;
+  --input: #cfcac4;
+  --ring: #e2261c;
+
+  --ink: #141110;
+  --ink-foreground: #f7f1ea;
+}
+
+@keyframes menu-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menu-card-enter {
+  animation: menu-card-enter 220ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-card-enter {
+    animation: none;
+  }
+}
+
+@media (max-width: 1279px) {
+  body:has(.workshop-dashboard) [data-sonner-toaster][data-y-position='bottom'] {
+    bottom: calc(4.75rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+.workshop-dashboard {
+  --background: #f4f1ed;
+  --foreground: #26211e;
+  --card: #fffdfa;
+  --border: #e7e0d8;
+  --muted: #f1ede7;
+  --muted-foreground: #74685d;
+  --timer-warning: #865914;
+  --timer-warning-bg: #fbf0d9;
+  --timer-late: #b42318;
+  --timer-late-bg: #fcebe7;
+  --timer-complete: #276648;
+  --timer-complete-bg: #eaf3ed;
+}
+
+/*
+ * DESKTOP / TABLET UI SCALING (--ui-zoom) — read before enlarging anything in the workshop panel.
+ *
+ * Settings sections (.workshop-settings) and every dialog are scaled with CSS `zoom` on wide screens:
+ *   >=1024px -> 1.05   >=1180px -> 1.15   >=1536px -> 1.25
+ * Steps follow viewport width, so smaller tablets keep the same proportions as the reference
+ * device (Galaxy Tab S11 Ultra, 14.6") instead of looking zoomed in.
+ *
+ * Rules:
+ * - Do NOT add extra lg:/xl: size classes inside zoomed areas — they stack with the zoom and get too big.
+ *   To change the scale, edit --ui-zoom here.
+ * - Opt a dialog out with `data-keep-size` on DialogContent (new-order dialog and the customer
+ *   product dialog use it; they are tuned by hand with md:/lg: classes).
+ * - `zoom` also multiplies vh/dvh. Inside zoomed areas divide by the zoom:
+ *   max-h-[calc(90dvh/var(--ui-zoom,1))].
+ * - Elements outside zoomed areas (e.g. header buttons "Kupon" / "Dodaj zamówienie" in
+ *   workshop-order-actions.tsx) are NOT zoomed and are enlarged directly with lg: classes.
+ */
+@media (min-width: 1024px) {
+  .workshop-settings,
+  [data-slot='dialog-content']:not([data-keep-size]) {
+    --ui-zoom: 1.05;
+    zoom: var(--ui-zoom);
+  }
+  /* zoom also multiplies viewport units, so divide the height cap back down to keep dialogs on screen. */
+  [data-slot='dialog-content']:not([data-keep-size]) {
+    max-height: calc(92dvh / var(--ui-zoom)) !important;
+  }
+}
+
+/* Scale steps follow viewport width so smaller tablets keep the same proportions instead of looking zoomed in. */
+@media (min-width: 1180px) {
+  .workshop-settings,
+  [data-slot='dialog-content']:not([data-keep-size]) {
+    --ui-zoom: 1.15;
+  }
+}
+
+@media (min-width: 1536px) {
+  .workshop-settings,
+  [data-slot='dialog-content']:not([data-keep-size]) {
+    --ui-zoom: 1.25;
+  }
+}
+
+.workshop-dashboard .timer-normal { background: var(--muted); color: var(--muted-foreground); }
+.workshop-dashboard .timer-warning { background: var(--timer-warning-bg); color: var(--timer-warning); }
+.workshop-dashboard .timer-late { background: var(--timer-late-bg); color: var(--timer-late); }
+.workshop-dashboard .timer-complete { background: var(--timer-complete-bg); color: var(--timer-complete); }
+.workshop-dashboard .timer-legend-warning { color: var(--timer-warning); }
+.workshop-dashboard .lane-new { background: var(--secondary); color: var(--primary); }
+.workshop-dashboard .lane-preparing { background: var(--timer-warning-bg); color: var(--timer-warning); }
+.workshop-dashboard .lane-ready { background: var(--timer-complete-bg); color: var(--timer-complete); }
+.workshop-dashboard .source-glovo { background: #fff8dc; border-color: #f2c94c; }
+.workshop-dashboard .source-pyszne { background: #fff1e2; border-color: #ff9a3c; }
+.workshop-dashboard .source-option-own { border-color: var(--primary); background: var(--secondary); }
+.workshop-dashboard .source-option-glovo { border-color: #f2c94c; background: #fff8dc; }
+.workshop-dashboard .source-option-pyszne { border-color: #ff9a3c; background: #fff1e2; }
+
+.workshop-dashboard .type-onsite { --type: #c2410c; --type-bg: #fff1e8; --type-ink: #ffffff; }
+.workshop-dashboard .type-pickup { --type: #6d28d9; --type-bg: #f3eefe; --type-ink: #ffffff; }
+.workshop-dashboard .type-delivery { --type: #475569; --type-bg: #eef1f5; --type-ink: #ffffff; }
+.workshop-dashboard .type-band { background: var(--type); color: var(--type-ink); }
+.workshop-dashboard .type-badge { background: var(--type); color: var(--type-ink); }
+.workshop-dashboard .type-soft { background: var(--type-bg); color: var(--type); }
+.workshop-dashboard .type-edge { box-shadow: inset 4px 0 0 var(--type); }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button,
+  label,
+  [role='button'],
+  [role='tab'],
+  summary {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+}
+
+@keyframes win-spark {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.3); }
+}
+
+@keyframes win-flash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+  }
+
+@keyframes win-pop {
+  0% { opacity: 0; transform: scale(0.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes win-glow {
+  0% { opacity: 0; transform: scale(0.6); }
+  100% { opacity: 1; transform: scale(1); }
+}
