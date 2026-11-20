@@ -1,0 +1,102 @@
+{
+  "settings": {
+    "lines": [
+      "Dziękujemy za zamówienie!"
+    ],
+    "qrTemplate": "https://www.yummyrybnik.pl/yummy-club/instaluj?utm_source=qr&utm_campaign=paragon"
+  },
+  "commands": [
+    {
+      "type": "free_items"
+    },
+    {
+      "type": "separator",
+      "char": "=",
+      "posnet": "========================================"
+    },
+    {
+      "type": "line",
+      "text": "NUMER ZAMÓWIENIA",
+      "posnet": "&cNUMER ZAMÓWIENIA&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "line",
+      "text": "{orderNumber}",
+      "posnet": "&c&H&s{orderNumber}&s&H&c",
+      "align": "center",
+      "size": "large",
+      "bold": true
+    },
+    {
+      "type": "separator",
+      "char": "=",
+      "posnet": "========================================"
+    },
+    {
+      "type": "line",
+      "text": "Dziękujemy za zamówienie!",
+      "posnet": "&cDziękujemy za zamówienie!&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "separator",
+      "char": "-",
+      "posnet": "----------------------------------------"
+    },
+    {
+      "type": "line",
+      "text": "YUMMY CLUB",
+      "posnet": "&cYUMMY CLUB&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "line",
+      "text": "Zbieraj punkty za każde zamówienie",
+      "posnet": "&cZbieraj punkty za każde zamówienie&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "line",
+      "text": "i wymieniaj je na nagrody!",
+      "posnet": "&ci wymieniaj je na nagrody!&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "line",
+      "text": "Zeskanuj kod QR",
+      "posnet": "&cZeskanuj kod QR&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "line",
+      "text": "i zainstaluj aplikację Yummy",
+      "posnet": "&ci zainstaluj aplikację Yummy&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "qr",
+      "data": "https://www.yummyrybnik.pl/yummy-club/instaluj?utm_source=qr&utm_campaign=paragon",
+      "errorCorrection": "M",
+      "size": 6
+    },
+    {
+      "type": "line",
+      "text": "www.yummyrybnik.pl",
+      "posnet": "&cwww.yummyrybnik.pl&c",
+      "align": "center",
+      "size": "normal"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    }
+  ]
+}
